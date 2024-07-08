@@ -3,7 +3,7 @@ import 'dotenv/config';
 
 
 let dbInstance = null;
-const dbName = "giftsdb";
+const dbName = "giftdb";
 const url = `${process.env.MONGODB_URL}`;
 
 async function connectToDatabase() {
