@@ -4,7 +4,7 @@ import connectToDatabase from "../models/db";
 
 const router = express.Router()
 
-router.get('/',async(req,res)=>{
+router.get('/',async(req,res,next)=>{
     try{
         const db = await connectToDatabase();
         const collection = db.collection('gifts');
@@ -15,7 +15,7 @@ router.get('/',async(req,res)=>{
             query.name = {$regex:req.query.name,$options:"i"}
             // https://www.mongodb.com/docs/v2.2/reference/operator/query/regex/ (visit this link for syntax reference)
         }
-        
+
         if (req.query.category){
             query.category = req.query.category;
         }
@@ -30,7 +30,7 @@ router.get('/',async(req,res)=>{
         res.json(gifts);
     }
     catch(err){
-        console.err(err)
+        next(err)
     }
 });
 
