@@ -1,7 +1,7 @@
 import express from "express";
 import connectToDatabase from "./models/db.js";
 import giftRoutes from './routes/giftRoutes.js' ;
-import searchRoutes from './routes/searchRoutes.js';
+import searchRoutes from './routes/searchRoutes.js'
 import cors from "cors";
 
 const app = express();
