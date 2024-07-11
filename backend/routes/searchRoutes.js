@@ -23,7 +23,7 @@ router.get('/',async(req,res,next)=>{
             query.condition = req.query.condition;
         }
         if (req.query.age_years){
-            query.age_years = req.query.age_years;
+            query.age_years = { $lte: parseInt(req.query.age_years) }; // less than or equal to the age (converted to Int)
         }
 
         const gifts = await collection.find(query).toArray();
