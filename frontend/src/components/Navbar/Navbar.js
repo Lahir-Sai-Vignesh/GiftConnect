@@ -14,7 +14,7 @@ function Navbar() {
 
       <ul className="nav nav-pills">
         <li className="nav-item"><a href="/" className="nav-link active" aria-current="page">Home</a></li>
-        <li className="nav-item"><a href="#" className="nav-link ">Search</a></li>
+        <li className="nav-item"><a href="/search" className="nav-link ">Search</a></li>
         <li className="nav-item"><a href="#" className="nav-link">login</a></li>
         <li className="nav-item"><a href="#" className="nav-link">Register</a></li>
       </ul>
