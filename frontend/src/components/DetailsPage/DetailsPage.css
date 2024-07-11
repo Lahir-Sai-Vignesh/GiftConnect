@@ -1,0 +1,39 @@
+/* Style for image placeholder */
+.image-placeholder-large {
+    width: 100%; 
+    height: 400px;
+    position: relative; 
+    background-color: #f0f0f0; 
+}
+
+/* Style for product image */
+.product-image-large {
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; /*The image keeps its aspect ratio and fills the given dimension. The image will be clipped to fit */
+}
+
+/* Style for 'no image available' placeholder */
+.no-image-available-large {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    background-color: #ccc;
+    color: #333; 
+    font-size: 18px;
+}
+
+/* Style for card header */
+.card-header {
+    background-color: "Crimson"; 
+    text-align: center;
+    padding: 15px;
+    
+}
+
+/* Style for details title */
+.details-title {
+    font-size: 28px; 
+    color: #333; 
+    font-weight: bold; 
+}

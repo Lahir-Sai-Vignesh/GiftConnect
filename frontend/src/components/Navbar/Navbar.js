@@ -2,21 +2,21 @@ import React from 'react'
 
 function Navbar() {
   return (
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+    <header className="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+      <a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
 
-        <span class="fs-4">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gift" viewBox="0 0 16 16">
+        <span className="fs-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-gift" viewBox="0 0 16 16">
           <path d="M3 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1 5 0v.006c0 .07 0 .27-.038.494H15a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 14.5V7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h2.038A3 3 0 0 1 3 2.506zm1.068.5H7v-.5a1.5 1.5 0 1 0-3 0c0 .085.002.274.045.43zM9 3h2.932l.023-.07c.043-.156.045-.345.045-.43a1.5 1.5 0 0 0-3 0zM1 4v2h6V4zm8 0v2h6V4zm5 3H9v8h4.5a.5.5 0 0 0 .5-.5zm-7 8V7H2v7.5a.5.5 0 0 0 .5.5z" />
         </svg> Gift Link
         </span>
       </a>
 
-      <ul class="nav nav-pills">
-        <li class="nav-item"><a href="/" class="nav-link active" aria-current="page">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link ">Search</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">login</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Register</a></li>
+      <ul className="nav nav-pills">
+        <li className="nav-item"><a href="/" className="nav-link active" aria-current="page">Home</a></li>
+        <li className="nav-item"><a href="#" className="nav-link ">Search</a></li>
+        <li className="nav-item"><a href="#" className="nav-link">login</a></li>
+        <li className="nav-item"><a href="#" className="nav-link">Register</a></li>
       </ul>
     </header>
   )
