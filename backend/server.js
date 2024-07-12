@@ -2,6 +2,7 @@ import express from "express";
 import connectToDatabase from "./models/db.js";
 import giftRoutes from './routes/giftRoutes.js' ;
 import searchRoutes from './routes/searchRoutes.js'
+import authRoutes from "./routes/authRoutes.js";
 import cors from "cors";
 
 const app = express();
@@ -19,7 +20,7 @@ app.use(express.json());
 
 app.use('/gifts',giftRoutes);
 app.use('/search',searchRoutes);
-
+app.use('/auth',authRoutes);
 
 // Global Error Handler
 app.use((err, req, res, next) => {
