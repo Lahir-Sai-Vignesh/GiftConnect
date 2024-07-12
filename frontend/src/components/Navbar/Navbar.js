@@ -2,7 +2,7 @@ import React from 'react'
 
 function Navbar() {
   return (
-    <header className="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+    <header className="d-flex flex-wrap justify-content-center py-3 mb-3 border-bottom">
       <a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
 
         <span className="fs-4">
@@ -16,7 +16,7 @@ function Navbar() {
         <li className="nav-item"><a href="/" className="nav-link active" aria-current="page">Home</a></li>
         <li className="nav-item"><a href="/search" className="nav-link ">Search</a></li>
         <li className="nav-item"><a href="#" className="nav-link">login</a></li>
-        <li className="nav-item"><a href="#" className="nav-link">Register</a></li>
+        <li className="nav-item"><a href="/register" className="nav-link">Register</a></li>
       </ul>
     </header>
   )
