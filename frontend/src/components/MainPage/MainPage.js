@@ -13,7 +13,7 @@ function MainPage() {
             try {
                 const url = `${urlConfig.backend_url}/gifts`;
                 const response = await axios.get(url);
-                console.log(response.data);
+                //console.log(response.data);
                 setGifts(response.data);
             } catch (error) {
                 if (error.response) {
