@@ -42,8 +42,37 @@ router.post("/register",async(req,res)=>{
         return res.status(500).send("Internal Server Error");
     }
 });
-router.post("/login",(req,res)=>{
-    res.send("login page")
+router.post("/login",async(req,res)=>{
+    try{
+        const email = req.body.email;
+        const password = req.body.password;
+        
+        const db = await connectToDatabase();
+        const collection = db.collection('users');
+        const User = await collection.findOne({email:req.body.email});
+        
+        if(User){
+            const result = await bcryptjs.compare(password,User.password);
+            if(!result){
+                return res.status(404).json({error:"Wrong password"});
+            }
+
+            // need to send token if passwords match
+            const payload={
+                user:{
+                    id:User._id.toString()
+                }
+            }
+            const token = jwt.sign(payload,JWT_SECRET);
+            return res.status(200).json({token,email});
+        }
+        else{
+            return res.status(404).json({error: "User Not Found"});
+        }
+    }
+    catch(err){
+        return res.status(500).send({error:"Internal Server Error",details:err.message});
+    }
 });
 router.put("/update",(req,res)=>{
     res.send("update page")
