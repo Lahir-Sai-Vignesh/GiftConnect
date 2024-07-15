@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../context/AuthContext.js'
 
 function Navbar() {
-  const { isLoggedIn, setIsLoggedIn, userName, setUserName } = useContext(AppContext);
+  const { isLoggedIn, setIsLoggedIn, userName } = useContext(AppContext);
   const navigate = useNavigate();
   console.log(isLoggedIn);
 
