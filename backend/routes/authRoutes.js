@@ -75,7 +75,28 @@ router.post("/login",async(req,res)=>{
         return res.status(500).send({error:"Internal Server Error",details:err.message});
     }
 });
-router.put("/update",(req,res)=>{
-    res.send("update page")
+router.put("/update",async(req,res)=>{
+    try {
+        const email = req.headers.email;
+        if(!email){
+            return res.status(400).json({error:"Email Not Found In The Request Headers"});
+        }
+        const db = await connectToDatabase();
+        const collection = db.collection("users");
+        const User = await collection.findOne({email : email});
+        if(!User){
+            return res.status(404).json({error : "User Not Found"});
+        }
+        User.firstName = req.body.firstName;
+        User.updatedAt = new Date();
+
+        const updatedUser = await collection.findOneAndUpdate({email},{$set:User},{return:'after'})
+
+        if(updatedUser){
+            return res.status(200).json({message:"User updated succesfully"});
+        }
+    } catch (error) {
+        res.status(500).send({error:"Internal Server Error",details:err.message})
+    }
 });
 export default router
