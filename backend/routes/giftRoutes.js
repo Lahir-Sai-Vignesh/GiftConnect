@@ -5,7 +5,7 @@ import connectToDatabase from "../models/db.js";
  const router = express.Router()
 
 router.get('/', async (req, res,next) => {
-    console.log('/ called');
+    console.log('/all gifts');
     try {
         const db = await connectToDatabase();
         const collection = db.collection("gifts");
@@ -18,6 +18,7 @@ router.get('/', async (req, res,next) => {
 });
 
 router.get('/:id',async (req,res,next)=>{
+    console.log('/single gift')
     try{
         const db= await connectToDatabase();
         const collection = db.collection('gifts');
