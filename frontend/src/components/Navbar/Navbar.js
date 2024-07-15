@@ -1,12 +1,30 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../context/AuthContext.js'
 
 function Navbar() {
-  const { isLoggedIn, setIsLoggedIn } = useContext(AppContext);
+  const { isLoggedIn, setIsLoggedIn, userName, setUserName } = useContext(AppContext);
+  const navigate = useNavigate();
 
-  const handleLogout = ()=>{
+  useEffect(() => {
+    const authToken = sessionStorage.getItem('authToken')
+    const name = sessionStorage.getItem('username');
+    if (authToken) {
+      if (isLoggedIn && name) {
+        setUserName(name);
+      }
+      else {
+        sessionStorage.removeItem('authToken');
+        sessionStorage.removeItem('username');
+        sessionStorage.removeItem('email');
+        setIsLoggedIn(false);
+      }
+    }
+  }, [isLoggedIn, userName]);
+  const handleLogout = () => {
     sessionStorage.removeItem("authToken");
     sessionStorage.removeItem("email");
+    sessionStorage.removeItem('username');
     setIsLoggedIn(false);
   }
 
@@ -26,6 +44,7 @@ function Navbar() {
         <li className="nav-item"><a href="/search" className="nav-link ">Search</a></li>
         {isLoggedIn ? (
           <>
+            <li className="nav-item"> <span className="nav-link" style={{ color: "black", cursor: "pointer" }} onClick={() => navigate('/profile')}>Welcome, {userName}</span> </li>
             <li className="nav-item"><button className="nav-link login-btn" onClick={handleLogout}>Logout</button></li>
           </>
         ) : (<>

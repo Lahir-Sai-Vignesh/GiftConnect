@@ -26,6 +26,7 @@ function LoginPage() {
             const data = response.data;
             sessionStorage.setItem('authToken', data.token);
             sessionStorage.setItem('email', data.email);
+            sessionStorage.setItem('username',data.firstName);
             setIsLoggedIn(true)
             navigate('/');
         }

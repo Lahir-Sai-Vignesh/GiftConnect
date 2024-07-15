@@ -7,6 +7,7 @@ import DetailsPage from './components/DetailsPage/DetailsPage';
 import SearchPage from './components/SearchPage/SearchPage';
 import RegisterPage from './components/RegisterPage/RegisterPage';
 import LoginPage from './components/LoginPage/LoginPage';
+import ProfilePage from './components/Profile/ProfilePage';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/search" element={<SearchPage/>} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path='/login' element={<LoginPage />} />
+        <Route path = '/profile' element = {<ProfilePage />} />
       </Routes>
     </>
   )
