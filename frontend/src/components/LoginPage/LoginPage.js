@@ -31,10 +31,10 @@ function LoginPage() {
         }
         catch (error) {
             console.log(error)
-        //     setIncorrect("Wrong password. Try again.");
-        //   setTimeout(() => {
-        //     setIncorrect("");
-        //   }, 2000);
+            setIncorrect("Wrong username or password. Try again.");
+          setTimeout(() => {
+            setIncorrect("");
+          }, 10000);
         }
     }
     return (
@@ -63,7 +63,6 @@ function LoginPage() {
                                         </div>
 
                                         <span style={{ color: 'red', height: '.5cm', display: 'block', fontStyle: 'italic', fontSize: '12px' }}>{incorrect}</span>
-
                                         <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
 
                                             <button className="btn btn-lg btn-outline-primary btn-block" type="button" onClick={handleLogin}>
