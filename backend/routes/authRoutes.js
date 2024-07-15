@@ -35,8 +35,9 @@ router.post("/register",async(req,res)=>{
                 id:newUser.insertedId
             }
         }
+
         const token = jwt.sign(payload,JWT_SECRET);
-        res.json({token,email});
+        res.json({token,email,firstName});
     }
     catch(err){
         return res.status(500).send("Internal Server Error");
@@ -56,7 +57,7 @@ router.post("/login",async(req,res)=>{
             if(!result){
                 return res.status(404).json({error:"Wrong password"});
             }
-
+            const firstName = User.firstName;
             // need to send token if passwords match
             const payload={
                 user:{
@@ -64,7 +65,7 @@ router.post("/login",async(req,res)=>{
                 }
             }
             const token = jwt.sign(payload,JWT_SECRET);
-            return res.status(200).json({token,email});
+            return res.status(200).json({token,email,firstName});
         }
         else{
             return res.status(404).json({error: "User Not Found"});
