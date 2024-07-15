@@ -11,7 +11,7 @@ function LoginPage() {
     const [incorrect,setIncorrect] = useState('');
 
     const navigate = useNavigate();
-    const { setIsLoggedIn } = useContext(AppContext);
+    const { setIsLoggedIn,setUserName } = useContext(AppContext);
 
     useEffect(()=>{
         if (sessionStorage.getItem('authToken')){
@@ -27,7 +27,8 @@ function LoginPage() {
             sessionStorage.setItem('authToken', data.token);
             sessionStorage.setItem('email', data.email);
             sessionStorage.setItem('username',data.firstName);
-            setIsLoggedIn(true)
+            setIsLoggedIn(true);
+            setUserName(data.firstName);
             navigate('/');
         }
         catch (error) {
@@ -53,9 +54,6 @@ function LoginPage() {
                                                 onChange={(e) => { setEmail(e.target.value) }} />
                                             <label htmlFor="form3Example3c">Email</label>
                                         </div>
-
-                                        {/* <div className="text-danger">{showErr}</div> */}
-
 
                                         <div className="form-floating mb-4">
                                             <input type="password" className="form-control" id="form3Example4c" placeholder="Password"

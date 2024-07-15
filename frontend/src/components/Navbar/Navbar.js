@@ -5,27 +5,15 @@ import { AppContext } from '../../context/AuthContext.js'
 function Navbar() {
   const { isLoggedIn, setIsLoggedIn, userName, setUserName } = useContext(AppContext);
   const navigate = useNavigate();
+  console.log(isLoggedIn);
 
-  useEffect(() => {
-    const authToken = sessionStorage.getItem('authToken')
-    const name = sessionStorage.getItem('username');
-    if (authToken) {
-      if (isLoggedIn && name) {
-        setUserName(name);
-      }
-      else {
-        sessionStorage.removeItem('authToken');
-        sessionStorage.removeItem('username');
-        sessionStorage.removeItem('email');
-        setIsLoggedIn(false);
-      }
-    }
-  }, [isLoggedIn, userName]);
+
   const handleLogout = () => {
     sessionStorage.removeItem("authToken");
     sessionStorage.removeItem("email");
     sessionStorage.removeItem('username');
     setIsLoggedIn(false);
+    navigate("/");
   }
 
   return (
