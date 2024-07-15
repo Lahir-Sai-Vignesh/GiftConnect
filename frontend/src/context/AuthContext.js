@@ -3,8 +3,9 @@ import React, { useState, createContext, useContext } from 'react';
 const AppContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userName, setUserName] = useState('');
+  // if I set it to false whenever I refresh my page is reset to false but I need to set it depending on the authToken to persist isLoggedIn throughout refreshes
+  const [isLoggedIn, setIsLoggedIn] = useState(!!sessionStorage.getItem('authToken')); 
+  const [userName, setUserName] = useState(sessionStorage.getItem('username'));
 
   return (
     <AppContext.Provider value={{ isLoggedIn, setIsLoggedIn, userName, setUserName }}>
