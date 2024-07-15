@@ -1,13 +1,15 @@
 import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AppContext } from '../../context/AuthContext.js'
 
 function Navbar() {
   const { isLoggedIn, setIsLoggedIn, userName } = useContext(AppContext);
   const navigate = useNavigate();
-  console.log(isLoggedIn);
-
-
+  // console.log(isLoggedIn);
+  const location = useLocation();
+  //console.log(location);
+  const path = location.pathname;
+  //console.log(path);
   const handleLogout = () => {
     sessionStorage.removeItem("authToken");
     sessionStorage.removeItem("email");
@@ -28,16 +30,16 @@ function Navbar() {
       </a>
 
       <ul className="nav nav-pills">
-        <li className="nav-item"><a href="/" className="nav-link active" aria-current="page">Home</a></li>
-        <li className="nav-item"><a href="/search" className="nav-link ">Search</a></li>
+        <li className="nav-item"><a href="/" className={`nav-link ${path === "/" ? 'active' : ''}`} aria-current="page">Home</a></li>
+        <li className="nav-item"><a href="/search" className={`nav-link ${path === "/search" ? 'active' : ''}`}>Search</a></li>
         {isLoggedIn ? (
           <>
-            <li className="nav-item"> <span className="nav-link" style={{ color: "black", cursor: "pointer" }} onClick={() => navigate('/profile')}>Welcome, {userName}</span> </li>
-            <li className="nav-item"><button className="nav-link login-btn" onClick={handleLogout}>Logout</button></li>
+            <li className="nav-item"> <span className={`nav-link ${path === "/profile" ? 'active' : ''}`} style={{ color: "black", cursor: "pointer" }} onClick={() => navigate('/profile')}>Welcome, {userName}</span> </li>
+            <li className="nav-item"><button className="nav-link " onClick={handleLogout}>Logout</button></li>
           </>
         ) : (<>
-          <li className="nav-item"><a href="/login" className="nav-link">Login</a></li>
-          <li className="nav-item"><a href="/register" className="nav-link">Register</a></li>
+          <li className="nav-item"><a href="/login" className={`nav-link ${path === "/login" ? 'active' : ''}`}>Login</a></li>
+          <li className="nav-item"><a href="/register" className={`nav-link ${path === "/register" ? 'active' : ''}`}>Register</a></li>
         </>)
         }
 
