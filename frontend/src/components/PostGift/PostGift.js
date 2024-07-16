@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import urlConfig from '../../config.js';
-
 
 function PostGift() {
 
     const generateProductId = () => {
         return Math.floor(100 + Math.random() * 900).toString(); // Generates a random three-digit number
     };
-    const email = sessionStorage.getItem('email')
+    const email = sessionStorage.getItem('email');
+    const fileInputRef = useRef(null);
 
     const [formData, setFormData] = useState({
         id: generateProductId(),
@@ -60,13 +62,13 @@ function PostGift() {
             };
 
             // Post data to your backend
-
             const backendResponse = await axios.post(`${urlConfig.backend_url}/gifts`, data);
 
             if (backendResponse) {
                 console.log(backendResponse.data);
-                console.log('Gift posted successfully');
-                // Handle success (e.g., clear the form, display a success message, etc.)
+                toast.success('Gift posted successfully');
+                
+                // Handle success (e.g., clear the form)
                 setFormData({
                     id: generateProductId(),
                     name: '',
@@ -79,15 +81,19 @@ function PostGift() {
                     age_years: '',
                     description: '',
                     image: null
-
                 });
+
+                // Reset the file input
+                if (fileInputRef.current) {
+                    fileInputRef.current.value = '';
+                }
             } else {
                 console.error('Failed to post gift');
-                // Handle error (e.g., display an error message, etc.)
+                toast.error('Failed to post gift');
             }
         } catch (error) {
             console.error('Error:', error);
-            // Handle error (e.g., display an error message, etc.)
+            toast.error('An error occurred while posting the gift');
         }
     };
 
@@ -102,8 +108,8 @@ function PostGift() {
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="condition" className="form-label">Condition</label>
-                    <select className="form-select" id="category" name="condition" value={formData.category} onChange={handleChange} required>
+                    <label htmlFor="category" className="form-label">Category</label>
+                    <select className="form-select" id="category" name="category" value={formData.category} onChange={handleChange} required>
                         <option value="Living">Living</option>
                         <option value="Bedroom">Bedroom</option>
                         <option value="Kitchen">Kitchen</option>
@@ -122,7 +128,7 @@ function PostGift() {
 
                 <div className="mb-3">
                     <label htmlFor="posted_by" className="form-label">Posted By</label>
-                    <input type="email" className="form-control" id="postedBy" name="posted_by" value={formData.posted_by} onChange={handleChange} disabled/>
+                    <input type="email" className="form-control" id="postedBy" name="posted_by" value={formData.posted_by} onChange={handleChange} disabled />
                 </div>
 
                 <div className="mb-3">
@@ -131,13 +137,13 @@ function PostGift() {
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="age_years" className='form-label'>Age (Years)</label>
-                    <input className="form-control" type="number" min="0" id="age_years" name='age_years' value={formData.age_years} onChange={handleChange} required />
+                    <label htmlFor="age_years" className="form-label">Age (Years)</label>
+                    <input className="form-control" type="number" min="0" id="age_years" name="age_years" value={formData.age_years} onChange={handleChange} required />
                 </div>
 
-                <div className="mb-3"> 
-                    <label htmlFor="age_days" className='form-label'>Age (Days)</label>
-                    <input  className="form-control" type="number" min="1" id="age_days" name='age_days' value={formData.age_days} onChange={handleChange} required />
+                <div className="mb-3">
+                    <label htmlFor="age_days" className="form-label">Age (Days)</label>
+                    <input className="form-control" type="number" min="1" id="age_days" name="age_days" value={formData.age_days} onChange={handleChange} required />
                 </div>
 
                 <div className="mb-3">
@@ -147,12 +153,13 @@ function PostGift() {
 
                 <div className="mb-3">
                     <label htmlFor="image" className="form-label">Image</label>
-                    <input type="file" className="form-control" id="image" name="image" accept="image/*" onChange={handleChange} required />
+                    <input type="file" className="form-control" id="image" name="image" accept="image/*" onChange={handleChange} required ref={fileInputRef} />
                 </div>
 
                 <button type="submit" className="btn btn-primary">Submit</button>
 
             </form>
+            <ToastContainer />
         </div>
     );
 }
