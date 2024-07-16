@@ -35,6 +35,7 @@ function Navbar() {
         {isLoggedIn ? (
           <>
             <li className="nav-item"> <span className={`nav-link ${path === "/profile" ? 'active' : ''}`} style={{ color: "black", cursor: "pointer" }} onClick={() => navigate('/profile')}>Welcome, {userName}</span> </li>
+            <li className="nav-item"><a href="/post-gift" className={`nav-link ${path === "/post-gift" ? 'active' : ''}`}>PostGift</a></li>
             <li className="nav-item"><button className="nav-link " onClick={handleLogout}>Logout</button></li>
           </>
         ) : (<>

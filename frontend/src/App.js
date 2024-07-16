@@ -8,6 +8,7 @@ import SearchPage from './components/SearchPage/SearchPage';
 import RegisterPage from './components/RegisterPage/RegisterPage';
 import LoginPage from './components/LoginPage/LoginPage';
 import ProfilePage from './components/Profile/ProfilePage';
+import PostGift from './components/PostGift/PostGift';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path = '/profile' element = {<ProfilePage />} />
+        <Route path ='/post-gift' element ={<PostGift/>} />
       </Routes>
     </>
   )
