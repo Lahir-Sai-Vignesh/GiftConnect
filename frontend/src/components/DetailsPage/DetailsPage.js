@@ -34,6 +34,11 @@ function DetailsPage() {
     if (error) return <p>Error loading gift details.</p>;
     if (!gift) return <div>Gift not found</div>;
 
+    const formatDate = (timestamp) => {
+        const date = new Date(timestamp * 1000);
+        return date.toLocaleString('default', { month: 'long', day: 'numeric', year: 'numeric' });
+    };
+
     return (
         <div className="container mt-5">
             <button className="btn btn-secondary mb-3" onClick={()=>navigate(-1)}>Back</button>
@@ -57,13 +62,16 @@ function DetailsPage() {
                         {gift.condition}
                     </p>
                     <p><strong>Date Added:</strong> 
-                        {gift.dateAdded}
+                        {formatDate(gift.date_added)}
                     </p>
                     <p><strong>Age (Years):</strong> 
-                        {gift.age}
+                        {gift.age_years}
                     </p>
                     <p><strong>Description:</strong> 
                         {gift.description}
+                    </p>
+                    <p><strong>Contact:</strong> 
+                        {gift.posted_by}
                     </p>
                 </div>
             </div>
