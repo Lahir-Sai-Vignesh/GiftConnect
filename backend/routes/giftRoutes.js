@@ -17,7 +17,23 @@ router.get('/', async (req, res,next) => {
     }
 });
 
-router.get('/:id',async (req,res,next)=>{
+router.get('/email/:email',async(req,res,next)=>{
+    try {
+        const db = await connectToDatabase();
+        const collection = db.collection('gifts');
+        const email = req.params.email;
+        //console.log(email);
+        const gifts = await collection.find({posted_by:email}).toArray();
+        if(!gifts){
+            return res.status(404).send("No Gifts Posted from this email");
+        }
+        return res.status(200).send(gifts);
+    } catch (error) {
+        next(err);
+    }
+})
+
+router.get('/id/:id',async (req,res,next)=>{
     console.log('/single gift')
     try{
         const db= await connectToDatabase();
@@ -33,6 +49,7 @@ router.get('/:id',async (req,res,next)=>{
         next(err)
     }
 });
+
 
 
 router.post('/',async (req,res,next)=>{
