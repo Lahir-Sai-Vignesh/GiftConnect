@@ -41,7 +41,7 @@ router.post('/',async (req,res,next)=>{
         const collection = db.collection('gifts');
         const gift = await collection.insertOne(req.body);
 
-        res.send(gift);
+        return res.status(200).send(gift);
     }
     catch(err){
         console.log("Error Inserting Item");
