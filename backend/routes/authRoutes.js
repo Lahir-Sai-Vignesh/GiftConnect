@@ -35,7 +35,8 @@ router.post("/register",async(req,res)=>{
                 id:newUser.insertedId
             }
         }
-
+        const firstName = req.body.firstName;
+        // console.log(firstName);
         const token = jwt.sign(payload,JWT_SECRET);
         res.json({token,email,firstName});
     }
