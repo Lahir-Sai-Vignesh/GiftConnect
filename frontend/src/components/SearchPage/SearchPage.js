@@ -17,8 +17,7 @@ function SearchPage() {
 
     const handleSearch = async () => {
         const baseUrl = `${urlConfig.backend_url}/search?`;
-        setSearchPerformed(true);
-
+        
         const queryParams = new URLSearchParams({
             name: query,
             age_years: ageRange,
@@ -34,6 +33,8 @@ function SearchPage() {
         } catch (err) {
             console.error('Failed to fetch search results:', err);
         }
+        setSearchPerformed(true);
+
     };
 
     const goToDetailsPage = (productId) => {
