@@ -30,7 +30,9 @@ function RegisterPage() {
             const data = response.data;
             sessionStorage.setItem('authToken',data.token);
             sessionStorage.setItem('email',data.email);
-            setIsLoggedIn(true)
+            sessionStorage.setItem('username',data.firstName);
+            setIsLoggedIn(true);
+            setUserName(data.firstName);
             navigate('/');
         }
         catch (error) {
