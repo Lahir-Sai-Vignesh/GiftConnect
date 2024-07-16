@@ -16,7 +16,7 @@ function DetailsPage() {
         }
         const fetchGift = async () => {
             try {
-                const url = `${urlConfig.backend_url}/gifts/${productId}`;
+                const url = `${urlConfig.backend_url}/gifts/id/${productId}`;
                 const response = await axios.get(url);
                 setGift(response.data);
                 setLoading(false);
