@@ -137,7 +137,7 @@ function PostGift() {
 
                 <div className="mb-3"> 
                     <label htmlFor="age_days" className='form-label'>Age (Days)</label>
-                    <input  className="form-control" type="number" min="0" id="age_days" name='age_days' value={formData.age_days} onChange={handleChange} required />
+                    <input  className="form-control" type="number" min="1" id="age_days" name='age_days' value={formData.age_days} onChange={handleChange} required />
                 </div>
 
                 <div className="mb-3">
