@@ -1,9 +1,15 @@
-import "dotenv/config";
-import MongoClient from 'mongodb';
-import fs from "fs";
+import 'dotenv/config';
+import { MongoClient } from 'mongodb';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const url = `${process.env.MOGODB_URL}`;
-const fileName = `${__dirname}/gifts.json`;
+// Get the directory name
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const url = process.env.MONGODB_URL;
+const fileName = path.join(__dirname, 'gifts.json');
 const dbName = 'giftdb';
 const collectionName = 'gifts';
 
@@ -11,7 +17,7 @@ const collectionName = 'gifts';
 const data = JSON.parse(fs.readFileSync(fileName,"utf8")).docs
 
 async function loadData(){
-    const client = new MongClient(url);
+    const client = new MongoClient(url);
     try{
         await client.connect();
         console.log("Connected Succesfully to the server");
@@ -25,7 +31,7 @@ async function loadData(){
         let documents = await cursor.toArray();
 
         if (documents.length == 0){
-            const inserResult = await collection.insertMany(data);
+            const insertResult = await collection.insertMany(data);
             console.log('Inserted documents:', insertResult.insertedCount);
         }
         else {
@@ -40,3 +46,4 @@ async function loadData(){
         await client.close();
     }
 }
+loadData();
