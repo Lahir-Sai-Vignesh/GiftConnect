@@ -3,14 +3,22 @@ import { AppContext } from '../../context/AuthContext.js';
 import urlConfig from '../../config.js';
 import axios from 'axios';
 import './ProfilePage.css';
+import { useNavigate } from 'react-router-dom';
 
 function ProfilePage() {
   const { userName, setUserName } = useContext(AppContext);
 
   const [edit, setEdit] = useState(false);
   const [name, setName] = useState(userName);
+  const navigate = useNavigate();
+  useEffect(()=>{ const authToken = sessionStorage.getItem('authToken')
+      if(!authToken){
+          navigate("/login");
+      }
+  },[]);
 
   useEffect(() => {
+    
     if (userName) {
       setName(userName);
     }

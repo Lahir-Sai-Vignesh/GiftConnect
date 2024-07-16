@@ -8,7 +8,11 @@ import urlConfig from '../../config';
 function UserPosts() {
     const [gifts, setGifts] = useState([]);
     const navigate = useNavigate();
-
+    useEffect(()=>{ const authToken = sessionStorage.getItem('authToken')
+        if(!authToken){
+            navigate("/login");
+        }
+    },[]);
     // fetching gifts on page load
     useEffect(() => {
         const fetchGifts = async () => {
