@@ -11,12 +11,13 @@ function SearchPage() {
     const [categoryFilter, setCategoryFilter] = useState('');
     const [conditionFilter, setConditionFilter] = useState('');
     const [results, setResults] = useState([]);
+    const [searchPerformed, setSearchPerformed] = useState(false);
     const navigate = useNavigate();
 
 
     const handleSearch = async () => {
         const baseUrl = `${urlConfig.backend_url}/search?`;
-        
+        setSearchPerformed(true);
 
         const queryParams = new URLSearchParams({
             name: query,
@@ -24,12 +25,12 @@ function SearchPage() {
             category: categoryFilter,
             condition: conditionFilter
         }).toString();
-        
+
         try {
             const response = await axios.get(`${baseUrl}${queryParams}`);
             let data = response.data;
             setResults(data);
-           
+
         } catch (err) {
             console.error('Failed to fetch search results:', err);
         }
@@ -98,26 +99,28 @@ function SearchPage() {
                     <button className="btn btn-primary" onClick={handleSearch}>Search</button>
 
                     <div className="search-results mt-4">
-                        {results.length > 0 ? (
-                            results.map(product => (
-                                <div key={product.id} className="card mb-3">
-                                    {/* Check if product has an image and display it */}
-                                    <img src={product.image} alt={product.name} className="card-img-top" />
-                                    <div className="card-body">
-                                        <h5 className="card-title">{product.name}</h5>
-                                        <p className="card-text">{product.description.slice(0, 100)}...</p>
+                    {!searchPerformed ? null : (
+                            results.length > 0 ? (
+                                results.map(product => (
+                                    <div key={product.id} className="card mb-3">
+                                        {/* Check if product has an image and display it */}
+                                        <img src={product.image} alt={product.name} className="card-img-top" />
+                                        <div className="card-body">
+                                            <h5 className="card-title">{product.name}</h5>
+                                            <p className="card-text">{product.description.slice(0, 100)}...</p>
+                                        </div>
+                                        <div className="card-footer">
+                                            <button onClick={() => goToDetailsPage(product.id)} className="btn btn-primary">
+                                                View More
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div className="card-footer">
-                                        <button onClick={() => goToDetailsPage(product.id)} className="btn btn-primary">
-                                            View More
-                                        </button>
-                                    </div>
+                                ))
+                            ) : (
+                                <div className="alert alert-info" role="alert">
+                                    No products found. Please revise your filters.
                                 </div>
-                            ))
-                        ) : (
-                            <div className="alert alert-info" role="alert">
-                                No products found. Please revise your filters.
-                            </div>
+                            )
                         )}
                     </div>
                 </div>
