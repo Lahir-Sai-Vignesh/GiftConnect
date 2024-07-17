@@ -7,12 +7,13 @@ import { useNavigate } from 'react-router-dom';
 
 function PostGift() {
     const navigate = useNavigate();
-    useEffect(()=>{ const authToken = sessionStorage.getItem('authToken')
-        if(!authToken){
+    useEffect(() => {
+        const authToken = sessionStorage.getItem('authToken');
+        if (!authToken) {
             navigate("/login");
         }
-    },[]);
-   
+    }, [navigate]);
+
     const generateProductId = () => {
         return Math.floor(100 + Math.random() * 900).toString(); // Generates a random three-digit number
     };
@@ -33,6 +34,8 @@ function PostGift() {
         image: null
     });
 
+    const [loading, setLoading] = useState(false); // Loading state
+
     const handleChange = (e) => {
         const { name, value, files } = e.target;
         if (name === 'image') {
@@ -50,6 +53,7 @@ function PostGift() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true); // Start loading
 
         const imgBBApiKey = process.env.REACT_APP_IMGBB_API_KEY;
         const imgBBUrl = `https://api.imgbb.com/1/upload?key=${imgBBApiKey}`;
@@ -74,7 +78,7 @@ function PostGift() {
             if (backendResponse) {
                 console.log(backendResponse.data);
                 toast.success('Gift posted successfully');
-                
+
                 // Handle success (e.g., clear the form)
                 setFormData({
                     id: generateProductId(),
@@ -101,6 +105,8 @@ function PostGift() {
         } catch (error) {
             console.error('Error:', error);
             toast.error('An error occurred while posting the gift');
+        } finally {
+            setLoading(false); // End loading
         }
     };
 
@@ -111,12 +117,12 @@ function PostGift() {
 
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Name</label>
-                    <input type="text" className="form-control" id="name" name="name" value={formData.name} onChange={handleChange} required />
+                    <input type="text" className="form-control" id="name" name="name" value={formData.name} onChange={handleChange} required disabled={loading} />
                 </div>
 
                 <div className="mb-3">
                     <label htmlFor="category" className="form-label">Category</label>
-                    <select className="form-select" id="category" name="category" value={formData.category} onChange={handleChange} required>
+                    <select className="form-select" id="category" name="category" value={formData.category} onChange={handleChange} required disabled={loading}>
                         <option value="Living">Living</option>
                         <option value="Bedroom">Bedroom</option>
                         <option value="Kitchen">Kitchen</option>
@@ -126,7 +132,7 @@ function PostGift() {
 
                 <div className="mb-3">
                     <label htmlFor="condition" className="form-label">Condition</label>
-                    <select className="form-select" id="condition" name="condition" value={formData.condition} onChange={handleChange} required>
+                    <select className="form-select" id="condition" name="condition" value={formData.condition} onChange={handleChange} required disabled={loading}>
                         <option value="New">New</option>
                         <option value="Like New">Like New</option>
                         <option value="Older">Older</option>
@@ -140,30 +146,32 @@ function PostGift() {
 
                 <div className="mb-3">
                     <label htmlFor="zipcode" className="form-label">Zipcode</label>
-                    <input type="text" className="form-control" id="zipcode" name="zipcode" value={formData.zipcode} onChange={handleChange} required />
+                    <input type="text" className="form-control" id="zipcode" name="zipcode" value={formData.zipcode} onChange={handleChange} required disabled={loading} />
                 </div>
 
                 <div className="mb-3">
                     <label htmlFor="age_years" className="form-label">Age (Years)</label>
-                    <input className="form-control" type="number" min="0" id="age_years" name="age_years" value={formData.age_years} onChange={handleChange} required />
+                    <input className="form-control" type="number" min="0" id="age_years" name="age_years" value={formData.age_years} onChange={handleChange} required disabled={loading} />
                 </div>
 
                 <div className="mb-3">
                     <label htmlFor="age_days" className="form-label">Age (Days)</label>
-                    <input className="form-control" type="number" min="1" id="age_days" name="age_days" value={formData.age_days} onChange={handleChange} required />
+                    <input className="form-control" type="number" min="1" id="age_days" name="age_days" value={formData.age_days} onChange={handleChange} required disabled={loading} />
                 </div>
 
                 <div className="mb-3">
                     <label htmlFor="description" className="form-label">Description</label>
-                    <textarea className="form-control" id="description" name="description" rows="3" value={formData.description} onChange={handleChange} required></textarea>
+                    <textarea className="form-control" id="description" name="description" rows="3" value={formData.description} onChange={handleChange} required disabled={loading}></textarea>
                 </div>
 
                 <div className="mb-3">
                     <label htmlFor="image" className="form-label">Image</label>
-                    <input type="file" className="form-control" id="image" name="image" accept="image/*" onChange={handleChange} required ref={fileInputRef} />
+                    <input type="file" className="form-control" id="image" name="image" accept="image/*" onChange={handleChange} required disabled={loading} ref={fileInputRef} />
                 </div>
 
-                <button type="submit" className="btn btn-primary">Submit</button>
+                <button type="submit" className="btn btn-primary" disabled={loading}>
+                    {loading ? 'Uploading...' : 'Submit'}
+                </button>
 
             </form>
             <ToastContainer />
