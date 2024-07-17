@@ -12,7 +12,7 @@ function RegisterPage() {
     const [password, setPswrd] = useState('');
 
     const [showErr, setShowErr] =useState('');
-    const { isLoggedIn, setIsLoggedIn, userName, setUserName } = useContext(AppContext);
+    const { setIsLoggedIn, setUserName } = useContext(AppContext);
     const navigate =useNavigate();
     const handleRegister = async () => {
         try {

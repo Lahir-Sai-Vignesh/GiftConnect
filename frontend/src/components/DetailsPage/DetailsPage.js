@@ -10,10 +10,7 @@ function DetailsPage({ editingMode }) {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
     useEffect(() => {
-        // const authToken = sessionStorage.getItem('authToken')
-        // if (!authToken) {
-        //     navigate("/login");
-        // }
+  
         const fetchGift = async () => {
             try {
                 const url = `${urlConfig.backend_url}/gifts/id/${productId}`;

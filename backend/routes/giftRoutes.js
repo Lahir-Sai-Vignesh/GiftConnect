@@ -1,8 +1,7 @@
 import express from "express";
 import connectToDatabase from "../models/db.js";
-import {ObjectId} from 'mongodb';
 
- const router = express.Router()
+const router = express.Router()
 
 router.get('/', async (req, res,next) => {
     console.log('/all gifts');

@@ -114,7 +114,7 @@ body,
   width: 100%; /* Full width */
   box-sizing: border-box; /* Includes padding and border in the width */
 }
-/* Highlight condition and age with color */
+
 .list-group-item-success {
   color: #28a745; /* Green text color for new items */
 }
@@ -122,5 +122,3 @@ body,
 .list-group-item-warning {
   color: #ffc107; /* Yellow text color for older items */
 }
-
-/* Customize the navbar brand and links */

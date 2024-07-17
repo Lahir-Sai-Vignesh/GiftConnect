@@ -60,20 +60,20 @@ function PostGift() {
             const imgBBResponse = await axios.post(imgBBUrl, imageFormData);
             const imageUrl = imgBBResponse.data.data.url;
 
-            // Prepare data for backend submission
+            
             const data = {
                 ...formData,
                 image: imageUrl
             };
 
-            // Post data to your backend
+            // Post data to backend
             const backendResponse = await axios.post(`${urlConfig.backend_url}/gifts`, data);
 
             if (backendResponse) {
                 console.log(backendResponse.data);
                 toast.success('Gift posted successfully');
 
-                // Handle success (e.g., clear the form)
+                // Handle success 
                 setFormData({
                     id: generateProductId(),
                     name: '',

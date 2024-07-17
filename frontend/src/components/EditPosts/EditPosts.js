@@ -98,14 +98,14 @@ function EditPost() {
             }
             data.updated_at = Math.floor(Date.now() / 1000);
 
-                // Post data to your backend
+                // Post data to backend
                 const backendResponse = await axios.put(`${urlConfig.backend_url}/gifts/id/${productId}`, data);
 
                 if (backendResponse) {
                     //console.log(backendResponse.data);
                     toast.success('Gift updated successfully');
 
-                    // Handle success (e.g., clear the form)
+                    // Handle success 
                     setFormData({
                         id: '',
                         name: '',
