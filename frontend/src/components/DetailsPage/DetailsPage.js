@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import urlConfig from '../../config';
 import './DetailsPage.css'
-function DetailsPage() {
+function DetailsPage({ editingMode }) {
     const { productId } = useParams();
     const [gift, setGift] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -11,7 +11,7 @@ function DetailsPage() {
     const navigate = useNavigate();
     useEffect(() => {
         const authToken = sessionStorage.getItem('authToken')
-        if(!authToken){
+        if (!authToken) {
             navigate("/login");
         }
         const fetchGift = async () => {
@@ -22,8 +22,8 @@ function DetailsPage() {
                 setLoading(false);
             } catch (error) {
                 //console.error(error);
-                setError(error); 
-            }finally{
+                setError(error);
+            } finally {
                 setLoading(false);
             }
         };
@@ -39,9 +39,26 @@ function DetailsPage() {
         return date.toLocaleString('default', { month: 'long', day: 'numeric', year: 'numeric' });
     };
 
+    function goToEditPage() {
+        navigate(`/profile/edit/product/editpost/${productId}`);
+    }
+    async function postDelete() {
+        try {
+            const url = `${urlConfig.backend_url}/gifts/id/${productId}`;
+            const response = await axios.delete(url);
+            navigate(-1)
+            console.log(response.data);
+        } catch (error) {
+            console.error(error)
+        }
+    }
     return (
         <div className="container mt-5">
-            <button className="btn btn-secondary mb-3" onClick={()=>navigate(-1)}>Back</button>
+            <button className="btn btn-secondary mb-3" onClick={() => navigate(-1)}>Back</button>
+            {editingMode ? (<>
+                <button className="btn btn-success mb-3" onClick={goToEditPage}>Edit</button>
+                <button className="btn btn-danger mb-3" onClick={postDelete}>Delete</button>
+            </>) : ''}
             <div className="card product-details-card">
                 <div className="card-header text-white">
                     <h2 className="details-title">{gift.name}</h2>
@@ -54,28 +71,28 @@ function DetailsPage() {
                             <div className="no-image-available-large">No Image Available</div>
                         )}
                     </div>
-                    
-                    <p><strong>Category:</strong> 
+
+                    <p><strong>Category:</strong>
                         {gift.category}
                     </p>
-                    <p><strong>Condition:</strong> 
+                    <p><strong>Condition:</strong>
                         {gift.condition}
                     </p>
-                    <p><strong>Date Added:</strong> 
+                    <p><strong>Date Added:</strong>
                         {formatDate(gift.date_added)}
                     </p>
-                    <p><strong>Age (Years):</strong> 
+                    <p><strong>Age (Years):</strong>
                         {gift.age_years}
                     </p>
-                    <p><strong>Description:</strong> 
+                    <p><strong>Description:</strong>
                         {gift.description}
                     </p>
-                    <p><strong>Contact:</strong> 
+                    <p><strong>Contact:</strong>
                         {gift.posted_by}
                     </p>
                 </div>
             </div>
-            
+
         </div>
     );
 }

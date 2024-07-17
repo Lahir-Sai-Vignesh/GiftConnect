@@ -4,7 +4,6 @@ import axios from 'axios';
 import urlConfig from '../../config';
 
 
-
 function UserPosts() {
     const [gifts, setGifts] = useState([]);
     const navigate = useNavigate();
@@ -49,8 +48,9 @@ function UserPosts() {
     };
 
     const goToDetailsPage = (productId) => {
-        navigate(`/product/${productId}`);
+        navigate(`/profile/edit/product/${productId}`);
     };
+    
 
     return (
         <div className="container" style={{ padding: "20px" }}>
@@ -86,7 +86,7 @@ function UserPosts() {
                 ))
             }
         </div>
-        </div >
+    </div>
     );
 }
 
