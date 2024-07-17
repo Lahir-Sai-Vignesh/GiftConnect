@@ -54,11 +54,17 @@ function DetailsPage({ editingMode }) {
     }
     return (
         <div className="container mt-5">
-            <button className="btn btn-secondary mb-3" onClick={() => navigate(-1)}>Back</button>
-            {editingMode ? (<>
-                <button className="btn btn-success mb-3" onClick={goToEditPage}>Edit</button>
-                <button className="btn btn-danger mb-3" onClick={postDelete}>Delete</button>
-            </>) : ''}
+            <div style={{display:"flex", justifyContent:"space-between"}}>
+                <button className="btn btn-secondary mb-3" onClick={() => navigate(-1)}>Back</button>
+                {
+                    editingMode ? (<div>
+                    <button className="btn btn-info mb-3" onClick={goToEditPage}>Edit</button>
+                    <button className="btn btn-danger mb-3" onClick={postDelete}>Delete</button>
+                    </div>) 
+                    : ''
+                }
+            </div>
+
             <div className="card product-details-card">
                 <div className="card-header text-white">
                     <h2 className="details-title">{gift.name}</h2>
