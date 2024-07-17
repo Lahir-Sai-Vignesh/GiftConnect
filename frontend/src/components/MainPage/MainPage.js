@@ -64,7 +64,7 @@ function MainPage() {
                             <div className="card" style={{ width: '18rem' }}>
                                 <div className='image-placeholder'>
                                     {gift.image ? (
-                                        <img src={gift.image} className="card-img-top" alt={gift.name} />
+                                        <img src={gift.image} className="card-img-top" alt={gift.name} loading="lazy"/>
                                     ) : (
                                         <div className="no-image-available">No Image Available</div>
                                     )}
