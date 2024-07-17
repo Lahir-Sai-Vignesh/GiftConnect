@@ -3,17 +3,11 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import urlConfig from '../../config.js';
-import { useNavigate } from 'react-router-dom';
+
+
 
 function PostGift() {
-    const navigate = useNavigate();
-    useEffect(() => {
-        const authToken = sessionStorage.getItem('authToken');
-        if (!authToken) {
-            navigate("/login");
-        }
-    }, [navigate]);
-
+    
     const generateProductId = () => {
         return Math.floor(100 + Math.random() * 900).toString(); // Generates a random three-digit number
     };

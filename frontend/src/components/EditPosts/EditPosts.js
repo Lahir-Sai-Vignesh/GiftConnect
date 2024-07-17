@@ -28,10 +28,6 @@ function EditPost() {
     });
 
     useEffect(() => {
-        const authToken = sessionStorage.getItem('authToken');
-        if (!authToken) {
-            navigate("/login");
-        }
         const fetchProduct = async () => {
             try {
                 const url = `${urlConfig.backend_url}/gifts/id/${productId}`;
