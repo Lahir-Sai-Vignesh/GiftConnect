@@ -6,6 +6,7 @@ import urlConfig from '../../config';
 function MainPage() {
     const [gifts, setGifts] = useState([]);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
 
     // fetching gifts on page load
     useEffect(() => {
@@ -27,6 +28,9 @@ function MainPage() {
                     // Something happened in setting up the request that triggered an Error
                     console.log('Error: ' + error.message);
                 }
+
+            } finally {
+                setLoading(false);
             }
         };
         fetchGifts();
@@ -47,7 +51,13 @@ function MainPage() {
 
     return (
         <div className="container mt-5">
-            <div className="row">
+            {loading ? (
+                <div className="d-flex justify-content-center align-items-center" style={{ height: '80vh' }}>
+                    <div className="spinner-border" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                </div>
+            ) : (<div className="row">
                 {
                     gifts.map((gift, index) => (
                         <div key={index} className="col-md-4 mb-4">
@@ -78,7 +88,8 @@ function MainPage() {
                         </div>
                     ))
                 }
-            </div>
+            </div>)
+            }
         </div>
     );
 }
